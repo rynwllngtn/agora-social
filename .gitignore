@@ -33,4 +33,3 @@ build/
 
 ### Database ###
 src/main/resources/application.yaml
-src/main/java/dev/rynwllngtn/agorasystem/configurations
