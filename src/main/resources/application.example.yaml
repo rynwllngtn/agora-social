@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: agora-system-social
+  data:
+    mongodb:
+      uri: "[YOUR-SERVER-URL]"
+      uuid-representation: standard
