@@ -17,13 +17,13 @@ public class User {
 
     @EqualsAndHashCode.Include
     @Id
-    protected UUID id;
+    protected UUID id = UUID.randomUUID();
     protected String cpf;
     protected String password;
     protected String name;
     protected String email;
     protected Date birthDate;
-    protected boolean isActive;
+    protected boolean isActive = true;
 
     @Override
     public String toString() {
