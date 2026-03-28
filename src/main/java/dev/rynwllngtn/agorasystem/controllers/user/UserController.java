@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -34,6 +35,12 @@ public class UserController {
         user = userService.insert(user);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(user);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -1,7 +1,5 @@
 package dev.rynwllngtn.agorasystem.exceptions.database;
 
-import java.util.UUID;
-
 public class DatabaseException extends RuntimeException {
     public DatabaseException(String message) {
         super(message);
@@ -12,4 +10,11 @@ public class DatabaseException extends RuntimeException {
             super("Usuário com ID: " + id + " não foi encontrado no sistema!");
         }
     }
+
+    public static class ObjectConstrainException extends DatabaseException {
+        public ObjectConstrainException(String id) {
+            super(id);
+        }
+    }
+
 }

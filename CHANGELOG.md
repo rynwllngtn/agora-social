@@ -9,8 +9,9 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 ## [Unreleased]
 
 ### Added
-- Implementação do endpoint *POST*
-- Implementação do endpoint *GET /users/{id}*.
+- Implementação do endpoint *DELETE /users/{id}, com tratamento de exceções personalizados*.
+- Implementação do endpoint *POST*.
+- Implementação do endpoint *GET /users/{id}, com tratamento de exceção personalizado*.
 - Implementação do endpoint *GET /users*.
 - Implementação do serviço *findAll*.
 - Criação do `DatabaseSeeder` para popular o banco de dados com 50 usuários de teste na primeira inicialização.

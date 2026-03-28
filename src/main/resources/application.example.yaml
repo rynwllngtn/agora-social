@@ -1,6 +1,7 @@
 spring:
   application:
     name: agora-system-social
+
   mongodb:
     host: localhost
     port: 27017

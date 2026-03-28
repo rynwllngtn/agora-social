@@ -4,11 +4,11 @@ import dev.rynwllngtn.agorasystem.entities.user.User;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.*;
 import dev.rynwllngtn.agorasystem.repositories.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -30,6 +30,26 @@ public class UserServiceImplementation implements UserService {
     @Override
     public User insert(User user) {
         return userRepository.insert(user);
+    }
+
+    @Override
+    public void delete(String id) {
+
+        if (!userRepository.existsById(id)) {
+            throw new ObjectNotFoundException(id);
+        }
+
+        try {
+            userRepository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new ObjectConstrainException(e.getMessage());
+        }
+    }
+
+    @Override
+    public User update(String id, User user) {
+        return null;
     }
 
 }
