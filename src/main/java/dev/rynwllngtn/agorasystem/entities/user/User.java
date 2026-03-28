@@ -17,13 +17,13 @@ public class User {
 
     @EqualsAndHashCode.Include
     @Id
-    protected UUID id = UUID.randomUUID();
-    protected String cpf;
-    protected String password;
-    protected String name;
-    protected String email;
-    protected Date birthDate;
-    protected boolean isActive = true;
+    private String id;
+    private String cpf;
+    private String password;
+    private String name;
+    private String email;
+    private Date birthDate;
+    private boolean isActive = true;
 
     @Override
     public String toString() {
@@ -39,4 +39,5 @@ public class User {
 
         return "Esse usuário está com a conta desativada!";
     }
+
 }

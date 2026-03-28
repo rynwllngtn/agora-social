@@ -22,9 +22,14 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User findById(UUID id) {
+    public User findById(String id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException(id));
+    }
+
+    @Override
+    public User insert(User user) {
+        return userRepository.insert(user);
     }
 
 }

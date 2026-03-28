@@ -8,7 +8,7 @@ public class DatabaseException extends RuntimeException {
     }
 
     public static class ObjectNotFoundException extends DatabaseException {
-        public ObjectNotFoundException(UUID id) {
+        public ObjectNotFoundException(String id) {
             super("Usuário com ID: " + id + " não foi encontrado no sistema!");
         }
     }
