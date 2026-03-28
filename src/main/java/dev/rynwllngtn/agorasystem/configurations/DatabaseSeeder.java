@@ -1,39 +1,35 @@
 package dev.rynwllngtn.agorasystem.configurations;
 
-import dev.rynwllngtn.agorasystem.entities.user.User;
-import dev.rynwllngtn.agorasystem.repositories.user.UserRepository;
+import dev.rynwllngtn.agorasystem.entities.profile.Profile;
+import dev.rynwllngtn.agorasystem.repositories.profile.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 
 @Configuration
 public class DatabaseSeeder implements CommandLineRunner {
 
     @Autowired
-    UserRepository userRepository;
+    ProfileRepository profileRepository;
 
     @Override
     public void run(String... args) throws Exception {
 
-        if (userRepository.count() > 0) {
+        if (profileRepository.count() > 0) {
             return;
         }
 
-        Random random = new Random();
         for (int i = 1; i <= 50; i++) {
+            Profile profile = new Profile();
+            profile.setProfileOwner(UUID.randomUUID());
+            profile.setUserName(String.format("User Number %d", i));
+            profile.setBirthDate(new Date());
 
-            String cpf = String.format("%011d", random.nextInt(1000000000));
-            User user = new User();
-            user.setCpf(cpf);
-            user.setPassword("password");
-            user.setName(String.format("User Number %d", i));
-            user.setEmail(String.format("user%d@email.com", i));
-            user.setBirthDate(new Date());
-
-            IO.println(userRepository.save(user));
+            IO.println(profileRepository.save(profile));
 
         }
     }

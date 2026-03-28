@@ -7,7 +7,7 @@ public class DatabaseException extends RuntimeException {
 
     public static class ObjectNotFoundException extends DatabaseException {
         public ObjectNotFoundException(String id) {
-            super("Usuário com ID: " + id + " não foi encontrado no sistema!");
+            super("Profile com ID: " + id + " não foi encontrado no sistema!");
         }
     }
 

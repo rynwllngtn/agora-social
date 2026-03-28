@@ -18,6 +18,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 - Criação da entidade `User`, com classes `repository`, `service` e `controller` respectivas.
 
 ### Changed
+- Alterado a entidade `User` para `Profile`, garantindo distinção e vinculo entre sistema Core e Social.
 - Alterado o formato do id UUID para String, usando o construtor ObjectId do MongoDB como padrão.
 
 ### Fixed

@@ -1,4 +1,4 @@
-package dev.rynwllngtn.agorasystem.entities.user;
+package dev.rynwllngtn.agorasystem.entities.profile;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -13,15 +13,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Document
-public class User {
+public class Profile {
 
     @EqualsAndHashCode.Include
     @Id
     private String id;
-    private String cpf;
-    private String password;
-    private String name;
-    private String email;
+    private UUID profileOwner;
+    private String userName;
     private Date birthDate;
     private boolean isActive = true;
 
@@ -30,14 +28,12 @@ public class User {
 
         if (isActive) {
             return ("ID: " + id + "\n" +
-                    "CPF: " + cpf + "\n" +
-                    "Password: " + password + "\n" +
-                    "Name: " + name + "\n" +
-                    "Email: " + email + "\n" +
+                    "Profile Owner: " + profileOwner + "\n" +
+                    "Name: " + userName + "\n" +
                     "Birthdate: " + birthDate);
         }
 
-        return "Esse usuário está com a conta desativada!";
+        return "Esse profile está desativado!";
     }
 
 }
