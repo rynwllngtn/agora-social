@@ -9,33 +9,38 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 ## [Unreleased]
 
 ### Added
-- Implementação do endpoint *GET /users/{id}/posts*.
-- Adicionado atributo *posts* em entidade `Profile`.
+- Implementação do endpoint *PUT /posts/{id}*.
+- Implementação do endpoint *DELETE /posts/{id}*, com tratamento de exceções personalizados.
+- Implementação do endpoint *POST*.
+- Implementação do endpoint *GET /posts/{id}*, com tratamento de exceção personalizado.
+- Implementação do endpoint *GET /posts*.
+- Implementação do endpoint *GET /profiles/{id}/posts*.
+- Adicionado atributo *List<Post> posts* em entidade `Profile`.
 - Implementação do padrão DTO para abstração e encapsulamento de `Profile`, aparecendo como `AuthorDTO`, em sua relação com `Post`.
-- Criação da entidade `Post`, com classe `repository` respectiva.
+- Criação da entidade `Post`, com classes `repository`, `service` e `controller` respectivas.
 
 ### Changed
 - Alterado a função `DatabaseSeeder` para popular o banco com nova entidade `Post`.
+- Reduzido população automática de banco para 10 profiles e posts.
 
 ### Fixed
 - Adicionado comentário para esclarecimento de atributo ambíguo.
+- Corrigido CHANGELOG confusa.
 
 ---
 
 ## [0.1.0] - 2026-03-29
 
 ### Added
-- Implementação do endpoint *PUT /users/{id}*.
-- Implementação do endpoint *DELETE /users/{id}*, com tratamento de exceções personalizados.
+- Implementação do endpoint *PUT /profiles/{id}*.
+- Implementação do endpoint *DELETE /profiles/{id}*, com tratamento de exceções personalizados.
 - Implementação do endpoint *POST*.
-- Implementação do endpoint *GET /users/{id}*, com tratamento de exceção personalizado.
-- Implementação do endpoint *GET /users*.
-- Implementação do serviço *findAll*.
-- Criação do `DatabaseSeeder` para popular o banco de dados com 50 usuários de teste na primeira inicialização.
-- Criação da entidade `User`, com classes `repository`, `service` e `controller` respectivas.
+- Implementação do endpoint *GET /profiles/{id}*, com tratamento de exceção personalizado.
+- Implementação do endpoint *GET /profiles*.
+- Criação do `DatabaseSeeder` para popular o banco de dados com 50 profiles de teste na primeira inicialização.
+- Criação da entidade `Profile`, com classes `repository`, `service` e `controller` respectivas.
 
 ### Changed
-- Alterado a entidade `User` para `Profile`, garantindo distinção e vinculo entre sistema Core e Social.
 - Alterado o formato do id UUID para String, usando o construtor ObjectId do MongoDB como padrão.
 
 ### Fixed
