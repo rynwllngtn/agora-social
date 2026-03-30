@@ -24,6 +24,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 - Reduzido população automática de banco para 10 profiles e posts.
 
 ### Fixed
+- Corrigido dados e vinculo incompletos entre `Post` e `Profile` ao usar endpoint *POST*.
 - Adicionado comentário para esclarecimento de atributo ambíguo.
 - Corrigido CHANGELOG confusa.
 

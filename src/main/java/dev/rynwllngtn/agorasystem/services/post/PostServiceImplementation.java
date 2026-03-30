@@ -1,12 +1,17 @@
 package dev.rynwllngtn.agorasystem.services.post;
 
+import dev.rynwllngtn.agorasystem.dtos.post.AuthorDTO;
 import dev.rynwllngtn.agorasystem.entities.post.Post;
+import dev.rynwllngtn.agorasystem.entities.profile.Profile;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.*;
 import dev.rynwllngtn.agorasystem.repositories.post.PostRepository;
+import dev.rynwllngtn.agorasystem.repositories.profile.ProfileRepository;
+import dev.rynwllngtn.agorasystem.services.profile.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +20,9 @@ public class PostServiceImplementation implements PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private ProfileService profileService;
 
     @Override
     public List<Post> findAll() {
@@ -29,7 +37,16 @@ public class PostServiceImplementation implements PostService {
 
     @Override
     public Post insert(Post post) {
-        return postRepository.insert(post);
+
+        Profile profile = profileService.findById(post.getAuthor().getId());
+        AuthorDTO author = new AuthorDTO(profile);
+        post.setAuthor(author);
+        post.setDate(new Date());
+        postRepository.insert(post);
+
+        profile.getPosts().add(post);
+        profileService.update(profile.getId(), profile);
+        return post;
     }
 
     @Override

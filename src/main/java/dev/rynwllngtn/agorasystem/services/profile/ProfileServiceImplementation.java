@@ -57,6 +57,7 @@ public class ProfileServiceImplementation implements ProfileService {
     private void updateData(Profile profile, Profile newData) {
         profile.setUserName(newData.getUserName());
         profile.setBirthDate(newData.getBirthDate());
+        profile.setPosts(newData.getPosts());
         profile.setActive(newData.isActive());
     }
 
