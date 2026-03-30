@@ -6,7 +6,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 
 ---
 
-## [Unreleased]
+## [0.2.0] - 2026-03-30
 
 ### Added
 - Implementação do endpoint *PUT /posts/{id}*.
@@ -24,6 +24,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 - Reduzido população automática de banco para 10 profiles e posts.
 
 ### Fixed
+- Corrigido nome do objeto do erro `ObjectNotFoundException` fixo como profile para retornar nome correto entregue como parâmetro.
 - Corrigido dados e vinculo incompletos entre `Post` e `Profile` ao usar endpoint *POST*.
 - Adicionado comentário para esclarecimento de atributo ambíguo.
 - Corrigido CHANGELOG confusa.

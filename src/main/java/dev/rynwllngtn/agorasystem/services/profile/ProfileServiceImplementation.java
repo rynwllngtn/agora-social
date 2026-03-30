@@ -1,5 +1,6 @@
 package dev.rynwllngtn.agorasystem.services.profile;
 
+import dev.rynwllngtn.agorasystem.entities.post.Post;
 import dev.rynwllngtn.agorasystem.entities.profile.Profile;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.*;
 import dev.rynwllngtn.agorasystem.repositories.profile.ProfileRepository;
@@ -24,7 +25,7 @@ public class ProfileServiceImplementation implements ProfileService {
     @Override
     public Profile findById(String id) {
         Optional<Profile> profile = profileRepository.findById(id);
-        return profile.orElseThrow(() -> new ObjectNotFoundException(id));
+        return profile.orElseThrow(() -> new ObjectNotFoundException(Profile.class.getSimpleName(), id));
     }
 
     @Override
@@ -36,7 +37,7 @@ public class ProfileServiceImplementation implements ProfileService {
     public void delete(String id) {
 
         if (!profileRepository.existsById(id)) {
-            throw new ObjectNotFoundException(id);
+            throw new ObjectNotFoundException(Profile.class.getSimpleName(), id);
         }
 
         try {

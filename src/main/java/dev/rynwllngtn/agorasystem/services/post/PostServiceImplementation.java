@@ -32,7 +32,7 @@ public class PostServiceImplementation implements PostService {
     @Override
     public Post findById(String id) {
         Optional<Post> post = postRepository.findById(id);
-        return post.orElseThrow(() -> new ObjectNotFoundException(id));
+        return post.orElseThrow(() -> new ObjectNotFoundException(Post.class.getSimpleName(), id));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class PostServiceImplementation implements PostService {
     public void delete(String id) {
 
         if (!postRepository.existsById(id)) {
-            throw new ObjectNotFoundException(id);
+            throw new ObjectNotFoundException(Post.class.getSimpleName(), id);
         }
 
         try {
