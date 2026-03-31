@@ -9,7 +9,13 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 ## [Unreleased]
 
 ### Added
+- Implementação do endpoint *PUT /comments/{id}*.
+- Implementação do endpoint *DELETE /comments/{id}*, com tratamento de exceções personalizados.
+- Implementação do endpoint *POST* para entidade Comment.
+- Implementação do endpoint *GET /comments/{id}*, com tratamento de exceção personalizado.
+- Implementação do endpoint *GET /comments*.
 - Adicionado atributo *List<Comment> comments* em entidade `Post`.
+- Implementação do DTO `PostDTO` para abstração da entidade `Post` em sua relação com `Comment`.
 - Criação de entidade `Comment`, com classe `repository` respectiva.
 
 ### Changed
@@ -22,12 +28,12 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 ### Added
 - Implementação do endpoint *PUT /posts/{id}*.
 - Implementação do endpoint *DELETE /posts/{id}*, com tratamento de exceções personalizados.
-- Implementação do endpoint *POST*.
+- Implementação do endpoint *POST* para entidade Post.
 - Implementação do endpoint *GET /posts/{id}*, com tratamento de exceção personalizado.
 - Implementação do endpoint *GET /posts*.
 - Implementação do endpoint *GET /profiles/{id}/posts*.
 - Adicionado atributo *List<Post> posts* em entidade `Profile`.
-- Implementação do padrão DTO para abstração e encapsulamento de `Profile`, aparecendo como `AuthorDTO`, em sua relação com `Post`.
+- Implementação do padrão DTO para abstração da entidade `Profile`, aparecendo como `AuthorDTO` em sua relação com `Post`.
 - Criação da entidade `Post`, com classes `repository`, `service` e `controller` respectivas.
 
 ### Changed
@@ -47,7 +53,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 ### Added
 - Implementação do endpoint *PUT /profiles/{id}*.
 - Implementação do endpoint *DELETE /profiles/{id}*, com tratamento de exceções personalizados.
-- Implementação do endpoint *POST*.
+- Implementação do endpoint *POST para entidade Profile*.
 - Implementação do endpoint *GET /profiles/{id}*, com tratamento de exceção personalizado.
 - Implementação do endpoint *GET /profiles*.
 - Criação do `DatabaseSeeder` para popular o banco de dados com 50 profiles de teste na primeira inicialização.
