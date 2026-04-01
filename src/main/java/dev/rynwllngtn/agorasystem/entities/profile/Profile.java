@@ -30,17 +30,10 @@ public class Profile {
     @DBRef(lazy = true)
     private List<Post> posts = new ArrayList<>();
 
-    @Override
-    public String toString() {
-
-        if (isActive) {
-            return ("ID: " + id + "\n" +
-                    "Profile Owner: " + profileOwner + "\n" +
-                    "Name: " + userName + "\n" +
-                    "Birthdate: " + birthDate);
-        }
-
-        return "Esse profile está desativado!";
+    public void update(Profile data) {
+        userName = data.getUserName();
+        birthDate = data.getBirthDate();
+        isActive = data.isActive();
     }
 
 }

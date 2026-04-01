@@ -19,6 +19,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 - Criação de entidade `Comment`, com classe `repository` respectiva.
 
 ### Changed
+- Transferido método responsável pela atualização dos dados para a classe da própria entidade.
 - Alterado a função `DatabaseSeeder` para popular o banco com nova entidade `Comment`.
 
 ---

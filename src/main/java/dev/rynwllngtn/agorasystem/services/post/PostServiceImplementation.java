@@ -67,14 +67,8 @@ public class PostServiceImplementation implements PostService {
     @Override
     public Post update(String id, Post data) {
         Post post = findById(id);
-        updateData(post, data);
+        post.update(data);
         return postRepository.save(post);
-    }
-
-    private void updateData(Post post, Post data) {
-        post.setAuthor(data.getAuthor());
-        post.setTitle(data.getTitle());
-        post.setBody(data.getBody());
     }
 
 }

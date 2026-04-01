@@ -24,4 +24,8 @@ public class Comment {
     private Date date;
     private String body;
 
+    public void update(Comment data) {
+        body = data.getBody();
+    }
+
 }

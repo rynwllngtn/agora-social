@@ -74,14 +74,8 @@ public class CommentServiceImplementation implements CommentService {
     @Override
     public Comment update(String id, Comment data) {
         Comment comment = findById(id);
-        updateData(comment, data);
+        comment.update(data);
         return commentRepository.save(comment);
-    }
-
-    private void updateData(Comment comment, Comment data) {
-        comment.setBody(data.getBody());
-        comment.setPost(data.getPost());
-        comment.setAuthor(data.getAuthor());
     }
 
 }
