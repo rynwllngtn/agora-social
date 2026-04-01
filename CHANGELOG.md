@@ -6,7 +6,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 
 ---
 
-## [Unreleased]
+## [v0.3.0] - 2026-04-01
 
 ### Added
 - Adicionado atributo className e getter em `ObjectNotFoundException`, possibilitando manuseio mais preciso.
