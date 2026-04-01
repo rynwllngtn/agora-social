@@ -1,11 +1,11 @@
 package dev.rynwllngtn.agorasystem.services.profile;
 
-import dev.rynwllngtn.agorasystem.entities.post.Post;
 import dev.rynwllngtn.agorasystem.entities.profile.Profile;
-import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.*;
+import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectConstrainException;
+import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectNotFoundException;
 import dev.rynwllngtn.agorasystem.repositories.profile.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,27 +25,28 @@ public class ProfileServiceImplementation implements ProfileService {
     @Override
     public Profile findById(String id) {
         Optional<Profile> profile = profileRepository.findById(id);
-        return profile.orElseThrow(() -> new ObjectNotFoundException(Profile.class.getSimpleName(), id));
+        return profile.orElseThrow(() -> new ObjectNotFoundException(Profile.class, id));
     }
 
     @Override
     public Profile insert(Profile profile) {
-        return profileRepository.insert(profile);
+
+        try {
+            return profileRepository.insert(profile);
+        }
+        catch (DuplicateKeyException e) {
+            throw new ObjectConstrainException(e.getMessage());
+        }
     }
 
     @Override
     public void delete(String id) {
 
         if (!profileRepository.existsById(id)) {
-            throw new ObjectNotFoundException(Profile.class.getSimpleName(), id);
+            throw new ObjectNotFoundException(Profile.class, id);
         }
 
-        try {
-            profileRepository.deleteById(id);
-        }
-        catch (DataIntegrityViolationException e) {
-            throw new ObjectConstrainException(e.getMessage());
-        }
+        profileRepository.deleteById(id);
     }
 
     @Override

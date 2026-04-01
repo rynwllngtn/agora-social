@@ -5,13 +5,13 @@ import dev.rynwllngtn.agorasystem.dtos.post.PostDTO;
 import dev.rynwllngtn.agorasystem.entities.comment.Comment;
 import dev.rynwllngtn.agorasystem.entities.post.Post;
 import dev.rynwllngtn.agorasystem.entities.profile.Profile;
-import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.*;
+import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectConstrainException;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectNotFoundException;
 import dev.rynwllngtn.agorasystem.repositories.comment.CommentRepository;
 import dev.rynwllngtn.agorasystem.services.post.PostService;
 import dev.rynwllngtn.agorasystem.services.profile.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -38,37 +38,37 @@ public class CommentServiceImplementation implements CommentService {
     @Override
     public Comment findById(String id) {
         Optional<Comment> comment = commentRepository.findById(id);
-        return comment.orElseThrow(() -> new ObjectNotFoundException(Comment.class.getSimpleName(), id));
+        return comment.orElseThrow(() -> new ObjectNotFoundException(Comment.class, id));
     }
 
     @Override
     public Comment insert(Comment comment) {
 
-        Profile profile = profileService.findById(comment.getAuthor().getId());
-        AuthorDTO author = new AuthorDTO(profile);
-        comment.setAuthor(author);
-        comment.setDate(new Date());
+        try {
+            Profile profile = profileService.findById(comment.getAuthor().getId());
+            AuthorDTO author = new AuthorDTO(profile);
+            comment.setAuthor(author);
+            comment.setDate(new Date());
 
-        Post post = postService.findById(comment.getPost().getId());
-        PostDTO postDTO = new PostDTO(post);
-        comment.setPost(postDTO);
+            Post post = postService.findById(comment.getPost().getId());
+            PostDTO postDTO = new PostDTO(post);
+            comment.setPost(postDTO);
 
-        return commentRepository.insert(comment);
+            return commentRepository.insert(comment);
+        }
+        catch (DuplicateKeyException e) {
+            throw new ObjectConstrainException(e.getMessage());
+        }
     }
 
     @Override
     public void delete(String id) {
 
         if (!commentRepository.existsById(id)) {
-            throw new ObjectNotFoundException(Comment.class.getSimpleName(), id);
+            throw new ObjectNotFoundException(Comment.class, id);
         }
 
-        try {
-            commentRepository.deleteById(id);
-        }
-        catch (DataIntegrityViolationException e) {
-            throw new ObjectConstrainException(e.getMessage());
-        }
+        commentRepository.deleteById(id);
     }
 
     @Override

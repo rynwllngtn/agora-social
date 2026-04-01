@@ -3,12 +3,12 @@ package dev.rynwllngtn.agorasystem.services.post;
 import dev.rynwllngtn.agorasystem.dtos.post.AuthorDTO;
 import dev.rynwllngtn.agorasystem.entities.post.Post;
 import dev.rynwllngtn.agorasystem.entities.profile.Profile;
-import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.*;
+import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectConstrainException;
+import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectNotFoundException;
 import dev.rynwllngtn.agorasystem.repositories.post.PostRepository;
-import dev.rynwllngtn.agorasystem.repositories.profile.ProfileRepository;
 import dev.rynwllngtn.agorasystem.services.profile.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -32,36 +32,36 @@ public class PostServiceImplementation implements PostService {
     @Override
     public Post findById(String id) {
         Optional<Post> post = postRepository.findById(id);
-        return post.orElseThrow(() -> new ObjectNotFoundException(Post.class.getSimpleName(), id));
+        return post.orElseThrow(() -> new ObjectNotFoundException(Post.class, id));
     }
 
     @Override
     public Post insert(Post post) {
 
-        Profile profile = profileService.findById(post.getAuthor().getId());
-        AuthorDTO author = new AuthorDTO(profile);
-        post.setAuthor(author);
-        post.setDate(new Date());
-        postRepository.insert(post);
+        try {
+            Profile profile = profileService.findById(post.getAuthor().getId());
+            AuthorDTO author = new AuthorDTO(profile);
+            post.setAuthor(author);
+            post.setDate(new Date());
+            postRepository.insert(post);
 
-        profile.getPosts().add(post);
-        profileService.update(profile.getId(), profile);
-        return post;
+            profile.getPosts().add(post);
+            profileService.update(profile.getId(), profile);
+            return post;
+        }
+        catch (DuplicateKeyException e) {
+            throw new ObjectConstrainException(e.getMessage());
+        }
     }
 
     @Override
     public void delete(String id) {
 
         if (!postRepository.existsById(id)) {
-            throw new ObjectNotFoundException(Post.class.getSimpleName(), id);
+            throw new ObjectNotFoundException(Post.class, id);
         }
 
-        try {
-            postRepository.deleteById(id);
-        }
-        catch (DataIntegrityViolationException e) {
-            throw new ObjectConstrainException(e.getMessage());
-        }
+        postRepository.deleteById(id);
     }
 
     @Override

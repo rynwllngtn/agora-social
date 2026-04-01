@@ -15,8 +15,8 @@ public class DatabaseExceptionHandler {
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
-        String error = "Objeto não encontrado!";
-        HttpStatus status =HttpStatus.NOT_FOUND;
+        String error = String.format("O %s não foi encontrado!", e.getClassName());
+        HttpStatus status = HttpStatus.NOT_FOUND;
         StandardError standardError = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(standardError);
     }
@@ -24,7 +24,7 @@ public class DatabaseExceptionHandler {
     @ExceptionHandler(ObjectConstrainException.class)
     public ResponseEntity<StandardError> objectConstrain(ObjectConstrainException e, HttpServletRequest request) {
         String error = "Dados incorretos!";
-        HttpStatus status =HttpStatus.BAD_REQUEST;
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError standardError = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(standardError);
     }

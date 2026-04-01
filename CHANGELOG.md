@@ -9,6 +9,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 ## [Unreleased]
 
 ### Added
+- Adicionado atributo className e getter em `ObjectNotFoundException`, possibilitando manuseio mais preciso.
 - Implementação do endpoint *PUT /comments/{id}*.
 - Implementação do endpoint *DELETE /comments/{id}*, com tratamento de exceções personalizados.
 - Implementação do endpoint *POST* para entidade Comment.
@@ -19,8 +20,12 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 - Criação de entidade `Comment`, com classe `repository` respectiva.
 
 ### Changed
+- Alterado parâmetro de String para Class<?> em `ObjectNotFoundException`, limitando a entrega para somente classes.
 - Transferido método responsável pela atualização dos dados para a classe da própria entidade.
 - Alterado a função `DatabaseSeeder` para popular o banco com nova entidade `Comment`.
+
+### Fixed
+- Corrigido lançamento de exceção incorretos em services.
 
 ---
 
