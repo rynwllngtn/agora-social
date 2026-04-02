@@ -27,9 +27,6 @@ public class Post {
     private String title;
     private String body;
 
-    @DBRef(lazy = true)
-    private List<Comment> comments = new ArrayList<>();
-
     public void update(Post data) {
         title = data.getTitle();
         body = data.getBody();

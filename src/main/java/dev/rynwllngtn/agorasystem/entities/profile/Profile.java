@@ -27,9 +27,6 @@ public class Profile {
     private Date birthDate;
     private boolean isActive = true;
 
-    @DBRef(lazy = true)
-    private List<Post> posts = new ArrayList<>();
-
     public void update(Profile data) {
         userName = data.getUserName();
         birthDate = data.getBirthDate();

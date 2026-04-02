@@ -6,6 +6,16 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 
 ---
 
+## [Unreleased]
+
+### Changed
+- Reorganizado a classe `DatabaseSeeder`, separando a criação de entidade em métodos.
+
+### Removed
+- Removido atributos List<> de entidades `Profile` e `Post`
+
+---
+
 ## [v0.3.0] - 2026-04-01
 
 ### Added
@@ -22,7 +32,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 ### Changed
 - Alterado parâmetro de String para Class<?> em `ObjectNotFoundException`, limitando a entrega para somente classes.
 - Transferido método responsável pela atualização dos dados para a classe da própria entidade.
-- Alterado a função `DatabaseSeeder` para popular o banco com nova entidade `Comment`.
+- Alterado a classe `DatabaseSeeder` para popular o banco com nova entidade `Comment`.
 
 ### Fixed
 - Corrigido lançamento de exceção incorretos em services.
@@ -43,7 +53,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 - Criação da entidade `Post`, com classes `repository`, `service` e `controller` respectivas.
 
 ### Changed
-- Alterado a função `DatabaseSeeder` para popular o banco com nova entidade `Post`.
+- Alterado a classe `DatabaseSeeder` para popular o banco com nova entidade `Post`.
 - Reduzido população automática de banco para 10 profiles e posts.
 
 ### Fixed
@@ -62,7 +72,7 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 - Implementação do endpoint *POST para entidade Profile*.
 - Implementação do endpoint *GET /profiles/{id}*, com tratamento de exceção personalizado.
 - Implementação do endpoint *GET /profiles*.
-- Criação do `DatabaseSeeder` para popular o banco de dados com 50 profiles de teste na primeira inicialização.
+- Criação da classe `DatabaseSeeder` para popular o banco de dados com 50 profiles de teste na primeira inicialização.
 - Criação da entidade `Profile`, com classes `repository`, `service` e `controller` respectivas.
 
 ### Changed

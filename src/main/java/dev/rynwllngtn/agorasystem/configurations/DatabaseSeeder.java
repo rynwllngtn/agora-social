@@ -37,32 +37,41 @@ public class DatabaseSeeder implements CommandLineRunner {
         int feederAmount = 10;
         for (int i = 1; i <= feederAmount; i++) {
 
-            Profile profile = new Profile();
-            profile.setProfileOwner(UUID.randomUUID());
-            profile.setUserName(String.format("Random profile %d", i));
-            profile.setBirthDate(new Date());
+            Profile profile = buildProfile(i);
             profileRepository.save(profile);
 
-            Post post = new Post();
-            post.setAuthor(new AuthorDTO(profile));
-            post.setTitle(String.format("Post from profile %s", profile.getUserName()));
-            post.setBody("Random post!");
-            post.setDate(new Date());
+            Post post = buildPost(profile);
             postRepository.save(post);
 
-            Comment comment = new Comment();
-            comment.setAuthor(new AuthorDTO(profile));
-            comment.setBody("Random comment!");
+            Comment comment = buildComment(post, profile);
             commentRepository.save(comment);
-
-            post.getComments().add(comment);
-            postRepository.save(post);
-
-            profile.getPosts().add(post);
-            profileRepository.save(profile);
         }
 
         IO.println("Database seeded successfully!");
+    }
+
+    private Profile buildProfile(int i) {
+        Profile profile = new Profile();
+        profile.setProfileOwner(UUID.randomUUID());
+        profile.setUserName(String.format("Random profile %d", i));
+        profile.setBirthDate(new Date());
+        return profile;
+    }
+
+    private Post buildPost(Profile author) {
+        Post post = new Post();
+        post.setAuthor(new AuthorDTO(author));
+        post.setTitle(String.format("Post from profile %s", author.getUserName()));
+        post.setBody("Random post!");
+        post.setDate(new Date());
+        return post;
+    }
+
+    private Comment buildComment (Post post, Profile author) {
+        Comment comment = new Comment();
+        comment.setAuthor(new AuthorDTO(author));
+        comment.setBody("Random comment!");
+        return comment;
     }
 
 }

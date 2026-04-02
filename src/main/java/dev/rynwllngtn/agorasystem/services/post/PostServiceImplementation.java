@@ -1,6 +1,7 @@
 package dev.rynwllngtn.agorasystem.services.post;
 
 import dev.rynwllngtn.agorasystem.dtos.post.AuthorDTO;
+import dev.rynwllngtn.agorasystem.dtos.profile.PostAddressDTO;
 import dev.rynwllngtn.agorasystem.entities.post.Post;
 import dev.rynwllngtn.agorasystem.entities.profile.Profile;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectConstrainException;
@@ -44,9 +45,6 @@ public class PostServiceImplementation implements PostService {
             post.setAuthor(author);
             post.setDate(new Date());
             postRepository.insert(post);
-
-            profile.getPosts().add(post);
-            profileService.update(profile.getId(), profile);
             return post;
         }
         catch (DuplicateKeyException e) {
@@ -69,6 +67,11 @@ public class PostServiceImplementation implements PostService {
         Post post = findById(id);
         post.update(data);
         return postRepository.save(post);
+    }
+
+    @Override
+    public List<PostAddressDTO> findPostsByAuthorId(String id) {
+        return postRepository.findPostsByAuthorId(id);
     }
 
 }
