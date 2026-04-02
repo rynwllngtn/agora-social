@@ -1,7 +1,8 @@
 package dev.rynwllngtn.agorasystem.controllers.profile;
 
-import dev.rynwllngtn.agorasystem.entities.post.Post;
+import dev.rynwllngtn.agorasystem.dtos.profile.PostAddressDTO;
 import dev.rynwllngtn.agorasystem.entities.profile.Profile;
+import dev.rynwllngtn.agorasystem.services.post.PostService;
 import dev.rynwllngtn.agorasystem.services.profile.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,9 @@ public class ProfileController {
 
     @Autowired
     private ProfileService profileService;
+
+    @Autowired
+    private PostService postService;
 
     @GetMapping
     public ResponseEntity<List<Profile>> findAll() {
@@ -50,9 +54,9 @@ public class ProfileController {
     }
 
     @GetMapping(value = "/{id}/posts")
-    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
-        Profile profile = profileService.findById(id);
-        return ResponseEntity.ok().body(profile.getPosts());
+    public ResponseEntity<List<PostAddressDTO>> findAllPosts(@PathVariable String id) {
+        List<PostAddressDTO> posts = postService.findPostsByAuthorId(id);
+        return ResponseEntity.ok().body(posts);
     }
 
 }
