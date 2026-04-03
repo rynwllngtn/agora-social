@@ -3,7 +3,6 @@ package dev.rynwllngtn.agorasystem.services.comment;
 import dev.rynwllngtn.agorasystem.dtos.AuthorDTO;
 import dev.rynwllngtn.agorasystem.dtos.comment.CommentDTO;
 import dev.rynwllngtn.agorasystem.dtos.comment.CommentPostDTO;
-import dev.rynwllngtn.agorasystem.dtos.post.PostCommentDTO;
 import dev.rynwllngtn.agorasystem.entities.comment.Comment;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectConstrainException;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectNotFoundException;
@@ -68,7 +67,7 @@ public class CommentServiceImplementation implements CommentService {
     }
 
     @Override
-    public List<PostCommentDTO> findCommentsByPostId(String id) {
+    public List<CommentDTO> findCommentsByPostId(String id) {
         return commentRepository.findCommentsByPostId(id);
     }
 

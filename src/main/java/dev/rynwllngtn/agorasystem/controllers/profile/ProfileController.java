@@ -1,7 +1,7 @@
 package dev.rynwllngtn.agorasystem.controllers.profile;
 
 import dev.rynwllngtn.agorasystem.dtos.comment.CommentDTO;
-import dev.rynwllngtn.agorasystem.dtos.post.PostDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostResponseDTO;
 import dev.rynwllngtn.agorasystem.dtos.profile.ProfileCreateRequestDTO;
 import dev.rynwllngtn.agorasystem.dtos.profile.ProfileResponseDTO;
 import dev.rynwllngtn.agorasystem.dtos.profile.ProfileUpdateRequestDTO;
@@ -59,8 +59,8 @@ public class ProfileController {
     }
 
     @GetMapping(value = "/{id}/posts")
-    public ResponseEntity<List<PostDTO>> findAllPosts(@PathVariable String id) {
-        List<PostDTO> posts = postService.findPostsByAuthorId(id);
+    public ResponseEntity<List<PostResponseDTO>> findAllPosts(@PathVariable String id) {
+        List<PostResponseDTO> posts = postService.findPostsByAuthorId(id);
         return ResponseEntity.ok().body(posts);
     }
 

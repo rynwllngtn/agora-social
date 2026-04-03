@@ -1,7 +1,9 @@
 package dev.rynwllngtn.agorasystem.services.post;
 
 import dev.rynwllngtn.agorasystem.dtos.comment.CommentPostDTO;
-import dev.rynwllngtn.agorasystem.dtos.post.PostDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostCreateRequestDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostResponseDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostUpdateRequestDTO;
 import dev.rynwllngtn.agorasystem.entities.post.Post;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +12,15 @@ import java.util.List;
 @Service
 public interface PostService {
 
-    public PostDTO findById(String id);
+    public PostResponseDTO findById(String id);
 
-    public Post insert(Post post);
+    public Post insert(PostCreateRequestDTO postCreateRequestDTO);
 
     public void delete(String id);
 
-    public Post update(String id, PostDTO postDTO);
+    public Post update(String id, PostUpdateRequestDTO postUpdateRequestDTO);
 
-    public List<PostDTO> findPostsByAuthorId(String id);
+    public List<PostResponseDTO> findPostsByAuthorId(String id);
 
     public CommentPostDTO findCommentPostById(String id);
 

@@ -10,13 +10,13 @@ import java.time.Instant;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostDTO {
+public class PostResponseDTO {
 
     private Instant date;
     private String title;
     private String body;
 
-    public PostDTO(Post post) {
+    public PostResponseDTO(Post post) {
         date = post.getDate();
         title = post.getTitle();
         body = post.getBody();

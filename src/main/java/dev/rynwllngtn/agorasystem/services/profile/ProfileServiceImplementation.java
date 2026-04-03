@@ -34,7 +34,6 @@ public class ProfileServiceImplementation implements ProfileService {
                                           profileCreateRequestDTO.getUserName(),
                                           profileCreateRequestDTO.getBirthDate());
 
-
             return profileRepository.insert(profile);
         }
         catch (DuplicateKeyException e) {
