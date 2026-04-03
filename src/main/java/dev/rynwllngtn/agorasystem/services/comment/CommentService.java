@@ -1,7 +1,6 @@
 package dev.rynwllngtn.agorasystem.services.comment;
 
 import dev.rynwllngtn.agorasystem.dtos.comment.CommentDTO;
-import dev.rynwllngtn.agorasystem.dtos.post.PostCommentDTO;
 import dev.rynwllngtn.agorasystem.entities.comment.Comment;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,7 @@ public interface CommentService {
 
     public Comment update(String id, CommentDTO commentDTO);
 
-    public List<PostCommentDTO> findCommentsByPostId(String id);
+    public List<CommentDTO> findCommentsByPostId(String id);
 
     public List<CommentDTO> findCommentsByAuthorId(String id);
 

@@ -1,13 +1,15 @@
 package dev.rynwllngtn.agorasystem.entities.post;
 
 import dev.rynwllngtn.agorasystem.dtos.AuthorDTO;
-import dev.rynwllngtn.agorasystem.dtos.post.PostDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostResponseDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostUpdateRequestDTO;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -27,9 +29,15 @@ public class Post {
     private String title;
     private String body;
 
-    public void update(PostDTO postDTO) {
-        title = postDTO.getTitle();
-        body = postDTO.getBody();
+    public Post(AuthorDTO author, String title, String body) {
+        this.author = author;
+        this.title = title;
+        this.body = body;
+    }
+
+    public void update(PostUpdateRequestDTO postUpdateRequestDTO) {
+        title = postUpdateRequestDTO.getTitle();
+        body = postUpdateRequestDTO.getBody();
     }
 
 }

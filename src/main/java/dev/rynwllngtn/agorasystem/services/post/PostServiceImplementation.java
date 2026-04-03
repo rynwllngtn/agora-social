@@ -2,7 +2,9 @@ package dev.rynwllngtn.agorasystem.services.post;
 
 import dev.rynwllngtn.agorasystem.dtos.AuthorDTO;
 import dev.rynwllngtn.agorasystem.dtos.comment.CommentPostDTO;
-import dev.rynwllngtn.agorasystem.dtos.post.PostDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostCreateRequestDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostResponseDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostUpdateRequestDTO;
 import dev.rynwllngtn.agorasystem.entities.post.Post;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectConstrainException;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectNotFoundException;
@@ -25,17 +27,20 @@ public class PostServiceImplementation implements PostService {
     private ProfileService profileService;
 
     @Override
-    public PostDTO findById(String id) {
-        Optional<PostDTO> postDTO = postRepository.findPostById(id);
+    public PostResponseDTO findById(String id) {
+        Optional<PostResponseDTO> postDTO = postRepository.findPostById(id);
         return postDTO.orElseThrow(() -> new ObjectNotFoundException(Post.class, id));
     }
 
     @Override
-    public Post insert(Post post) {
+    public Post insert(PostCreateRequestDTO postCreateRequestDTO) {
 
         try {
-            AuthorDTO author = profileService.findAuthorById(post.getAuthor().getId());
-            post.setAuthor(author);
+            AuthorDTO author = profileService.findAuthorById(postCreateRequestDTO.getAuthor().getId());
+            Post post = new Post(author,
+                                 postCreateRequestDTO.getTitle(),
+                                 postCreateRequestDTO.getBody());
+
             return postRepository.insert(post);
         }
         catch (DuplicateKeyException e) {
@@ -54,14 +59,14 @@ public class PostServiceImplementation implements PostService {
     }
 
     @Override
-    public Post update(String id, PostDTO data) {
+    public Post update(String id, PostUpdateRequestDTO postUpdateRequestDTO) {
         Post post = postRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(Post.class, id));
-        post.update(data);
+        post.update(postUpdateRequestDTO);
         return postRepository.save(post);
     }
 
     @Override
-    public List<PostDTO> findPostsByAuthorId(String id) {
+    public List<PostResponseDTO> findPostsByAuthorId(String id) {
         return postRepository.findPostsByAuthorId(id);
     }
 

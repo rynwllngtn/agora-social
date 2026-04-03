@@ -9,6 +9,25 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 ## [0.3.1] - 2026-04-03
 
 ### Added
+- Anotações de validação (@NotBlank, @NotNull) com mensagens customizadas no `ProfileUpdateRequestDTO` e `PostUpdateRequestDTO` e integração com @Valid no endpoint *PUT*.
+- Classes de transferência de dados `PostResponseDTO`, `PostCreateRequestDTO` e `PostUpdateRequestDTO` para abstrair e proteger a entidade `Post`.
+- Classes de transferência de dados `ProfileResponseDTO`, `ProfileCreateRequestDTO` e `ProfileUpdateRequestDTO` para abstrair e proteger a entidade `Profile`.
+- Adicionado dependência **spring-boot-starter-validation** no pom.xml para habilitar a validação de dados.
+
+### Changed
+- Refatoração das classes `ProfileController` e `PostController` (endpoints GET, POST e PUT) para receber e retornar os novos DTOs, evitando a exposição da entidade Profile.
+- Atualização da assinatura e implementação do `ProfileService` e `PostService`
+- Retorno do endpoint GET /{id}/comments no `PostController` alterado para devolver uma lista de `CommentDTO`.
+- Retorno do endpoint GET /{id}/posts no `ProfileController` alterado para devolver uma lista de `PostDTO`.
+
+### Removed
+- Excluído os DTOs `ProfilePostDTO` e `PostCommentDTO` não usados.
+
+---
+
+## [Unreleased]
+
+### Added
 - Criação dos endpoints de listagem para buscar todos os `Comment` relacionados a um `Post` ou `Profile` específico, garantindo o acesso aos dados após a remoção das listas embutidas nas entidades.
 - Criação de novos métodos de comunicação interna no `PostService` e novos mapeamentos de rota no `ProfileController`.
 - Configuração do `MongoConfiguration` e implementação da anotação `@CreatedDate` na entidade `Post`, delegando o controle de tempo para o framework.

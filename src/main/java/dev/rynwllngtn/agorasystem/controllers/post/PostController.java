@@ -1,10 +1,13 @@
 package dev.rynwllngtn.agorasystem.controllers.post;
 
-import dev.rynwllngtn.agorasystem.dtos.post.PostCommentDTO;
-import dev.rynwllngtn.agorasystem.dtos.post.PostDTO;
+import dev.rynwllngtn.agorasystem.dtos.comment.CommentDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostCreateRequestDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostResponseDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostUpdateRequestDTO;
 import dev.rynwllngtn.agorasystem.entities.post.Post;
 import dev.rynwllngtn.agorasystem.services.comment.CommentService;
 import dev.rynwllngtn.agorasystem.services.post.PostService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,17 +27,17 @@ public class PostController {
     CommentService commentService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PostDTO> findById(@PathVariable String id) {
-        PostDTO postDTO = postService.findById(id);
-        return ResponseEntity.ok().body(postDTO);
+    public ResponseEntity<PostResponseDTO> findById(@PathVariable String id) {
+        PostResponseDTO postResponseDTO = postService.findById(id);
+        return ResponseEntity.ok().body(postResponseDTO);
     }
 
     @PostMapping
-    public ResponseEntity<PostDTO> insert(@RequestBody Post post) {
-        post = postService.insert(post);
-        PostDTO postDTO = postService.findById(post.getId());
+    public ResponseEntity<PostResponseDTO> insert(@RequestBody PostCreateRequestDTO postCreateRequestDTO) {
+        Post post = postService.insert(postCreateRequestDTO);
+        PostResponseDTO postResponseDTO = new PostResponseDTO(post);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getId()).toUri();
-        return ResponseEntity.created(uri).body(postDTO);
+        return ResponseEntity.created(uri).body(postResponseDTO);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -44,14 +47,15 @@ public class PostController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<PostDTO> update(@RequestBody PostDTO postDTO, @PathVariable String id) {
-        postService.update(id, postDTO);
-        return ResponseEntity.ok().body(postDTO);
+    public ResponseEntity<PostResponseDTO> update(@Valid @RequestBody PostUpdateRequestDTO postUpdateRequestDTO, @PathVariable String id) {
+        Post post = postService.update(id, postUpdateRequestDTO);
+        PostResponseDTO postResponseDTO = new PostResponseDTO(post);
+        return ResponseEntity.ok().body(postResponseDTO);
     }
 
     @GetMapping(value = "/{id}/comments")
-    public ResponseEntity<List<PostCommentDTO>> findAllComments(@PathVariable String id) {
-        List<PostCommentDTO> comments = commentService.findCommentsByPostId(id);
+    public ResponseEntity<List<CommentDTO>> findAllComments(@PathVariable String id) {
+        List<CommentDTO> comments = commentService.findCommentsByPostId(id);
         return ResponseEntity.ok().body(comments);
     }
 
