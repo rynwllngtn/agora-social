@@ -1,6 +1,6 @@
 package dev.rynwllngtn.agorasystem.entities.comment;
 
-import dev.rynwllngtn.agorasystem.dtos.post.AuthorDTO;
+import dev.rynwllngtn.agorasystem.dtos.AuthorDTO;
 import dev.rynwllngtn.agorasystem.dtos.profile.ProfilePostDTO;
 import lombok.*;
 import org.springframework.data.annotation.Id;

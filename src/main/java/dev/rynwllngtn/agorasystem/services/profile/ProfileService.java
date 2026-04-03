@@ -1,6 +1,6 @@
 package dev.rynwllngtn.agorasystem.services.profile;
 
-import dev.rynwllngtn.agorasystem.dtos.post.AuthorDTO;
+import dev.rynwllngtn.agorasystem.dtos.AuthorDTO;
 import dev.rynwllngtn.agorasystem.dtos.profile.ProfileDTO;
 import dev.rynwllngtn.agorasystem.entities.profile.Profile;
 import org.springframework.stereotype.Service;

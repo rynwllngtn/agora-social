@@ -1,6 +1,7 @@
 package dev.rynwllngtn.agorasystem.configurations;
 
-import dev.rynwllngtn.agorasystem.dtos.post.AuthorDTO;
+import dev.rynwllngtn.agorasystem.dtos.AuthorDTO;
+import dev.rynwllngtn.agorasystem.dtos.profile.ProfilePostDTO;
 import dev.rynwllngtn.agorasystem.entities.comment.Comment;
 import dev.rynwllngtn.agorasystem.entities.post.Post;
 import dev.rynwllngtn.agorasystem.entities.profile.Profile;
@@ -62,13 +63,13 @@ public class DatabaseSeeder implements CommandLineRunner {
         post.setAuthor(new AuthorDTO(author));
         post.setTitle(String.format("Post from profile %s", author.getUserName()));
         post.setBody("Random post!");
-        post.setDate(new Date());
         return post;
     }
 
     private Comment buildComment (Post post, Profile author) {
         Comment comment = new Comment();
         comment.setAuthor(new AuthorDTO(author));
+        comment.setPost(new ProfilePostDTO(post));
         comment.setBody("Random comment!");
         return comment;
     }

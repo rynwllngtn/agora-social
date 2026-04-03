@@ -1,6 +1,7 @@
 package dev.rynwllngtn.agorasystem.services.post;
 
-import dev.rynwllngtn.agorasystem.dtos.post.AuthorDTO;
+import dev.rynwllngtn.agorasystem.dtos.AuthorDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostDTO;
 import dev.rynwllngtn.agorasystem.dtos.profile.ProfilePostDTO;
 import dev.rynwllngtn.agorasystem.entities.post.Post;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectConstrainException;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,14 +25,9 @@ public class PostServiceImplementation implements PostService {
     private ProfileService profileService;
 
     @Override
-    public List<Post> findAll() {
-        return postRepository.findAll();
-    }
-
-    @Override
-    public Post findById(String id) {
-        Optional<Post> post = postRepository.findById(id);
-        return post.orElseThrow(() -> new ObjectNotFoundException(Post.class, id));
+    public PostDTO findById(String id) {
+        Optional<PostDTO> postDTO = postRepository.findPostById(id);
+        return postDTO.orElseThrow(() -> new ObjectNotFoundException(Post.class, id));
     }
 
     @Override
@@ -41,9 +36,7 @@ public class PostServiceImplementation implements PostService {
         try {
             AuthorDTO author = profileService.findAuthorById(post.getAuthor().getId());
             post.setAuthor(author);
-            post.setDate(new Date());
-            postRepository.insert(post);
-            return post;
+            return postRepository.insert(post);
         }
         catch (DuplicateKeyException e) {
             throw new ObjectConstrainException(e.getMessage());
@@ -61,8 +54,8 @@ public class PostServiceImplementation implements PostService {
     }
 
     @Override
-    public Post update(String id, Post data) {
-        Post post = findById(id);
+    public Post update(String id, PostDTO data) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(Post.class, id));
         post.update(data);
         return postRepository.save(post);
     }
