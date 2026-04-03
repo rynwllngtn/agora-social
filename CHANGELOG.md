@@ -8,6 +8,11 @@ O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.
 
 ## [Unreleased]
 
+### Added
+- Implementação de consultas customizadas no `ProfileRepository` e `PostRepository` para converter dados diretamente da base para DTOs.
+- Criação do método `findAuthorById` no `ProfileService`, usado por `PostService` e `CommentService` buscarem autores sem expor a entidade completa.
+- Criação das classes `ProfilePostDTO` e `PostAddressDTO`, garantindo JSONs enxutos.
+
 ### Changed
 - Alterado nome do atributo *isActive* para *active*, mantendo o padrão nativo do framework.
 - Alterado o retorno de endpoints para `ProfileDTO`, adicionando uma camada de segurança.

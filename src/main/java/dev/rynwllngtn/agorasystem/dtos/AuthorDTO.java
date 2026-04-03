@@ -1,4 +1,4 @@
-package dev.rynwllngtn.agorasystem.dtos.post;
+package dev.rynwllngtn.agorasystem.dtos;
 
 import dev.rynwllngtn.agorasystem.entities.profile.Profile;
 import lombok.Getter;

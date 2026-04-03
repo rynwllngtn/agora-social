@@ -1,14 +1,11 @@
 package dev.rynwllngtn.agorasystem.services.comment;
 
-import dev.rynwllngtn.agorasystem.dtos.post.AuthorDTO;
-import dev.rynwllngtn.agorasystem.dtos.profile.ProfilePostDTO;
+import dev.rynwllngtn.agorasystem.dtos.AuthorDTO;
+import dev.rynwllngtn.agorasystem.dtos.post.PostCommentDTO;
 import dev.rynwllngtn.agorasystem.entities.comment.Comment;
-import dev.rynwllngtn.agorasystem.entities.post.Post;
-import dev.rynwllngtn.agorasystem.entities.profile.Profile;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectConstrainException;
 import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ObjectNotFoundException;
 import dev.rynwllngtn.agorasystem.repositories.comment.CommentRepository;
-import dev.rynwllngtn.agorasystem.services.post.PostService;
 import dev.rynwllngtn.agorasystem.services.profile.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -26,9 +23,6 @@ public class CommentServiceImplementation implements CommentService {
 
     @Autowired
     ProfileService profileService;
-
-    @Autowired
-    PostService postService;
 
     @Override
     public List<Comment> findAll() {
@@ -48,11 +42,6 @@ public class CommentServiceImplementation implements CommentService {
             AuthorDTO author = profileService.findAuthorById(comment.getAuthor().getId());
             comment.setAuthor(author);
             comment.setDate(new Date());
-
-            Post post = postService.findById(comment.getPost().getId());
-            ProfilePostDTO postDTO = new ProfilePostDTO(post);
-            comment.setPost(postDTO);
-
             return commentRepository.insert(comment);
         }
         catch (DuplicateKeyException e) {
@@ -75,6 +64,11 @@ public class CommentServiceImplementation implements CommentService {
         Comment comment = findById(id);
         comment.update(data);
         return commentRepository.save(comment);
+    }
+
+    @Override
+    public List<PostCommentDTO> findCommentsByPostId(String id) {
+        return commentRepository.findCommentsByPostId(id);
     }
 
 }

@@ -1,5 +1,6 @@
 package dev.rynwllngtn.agorasystem.entities.profile;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import dev.rynwllngtn.agorasystem.dtos.profile.ProfileDTO;
 import lombok.*;
 import org.springframework.data.annotation.Id;
