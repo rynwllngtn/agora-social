@@ -1,6 +1,6 @@
 package dev.rynwllngtn.agorasocial.infrastructure.database.migrations;
 
-import dev.rynwllngtn.agorasocial.entities.comment.Comment;
+import dev.rynwllngtn.agorasocial.domain.comment.Comment;
 import io.mongock.api.annotations.ChangeUnit;
 import io.mongock.api.annotations.Execution;
 import io.mongock.api.annotations.RollbackExecution;

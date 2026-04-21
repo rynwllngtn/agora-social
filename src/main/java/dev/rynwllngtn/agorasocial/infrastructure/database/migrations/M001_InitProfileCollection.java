@@ -1,6 +1,6 @@
 package dev.rynwllngtn.agorasocial.infrastructure.database.migrations;
 
-import dev.rynwllngtn.agorasocial.entities.profile.Profile;
+import dev.rynwllngtn.agorasocial.domain.profile.Profile;
 import io.mongock.api.annotations.ChangeUnit;
 import io.mongock.api.annotations.Execution;
 import io.mongock.api.annotations.RollbackExecution;
